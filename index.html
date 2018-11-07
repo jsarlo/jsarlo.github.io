@@ -1,7 +1,71 @@
 <!DOCTYPE html>
 <body>
+<title>My Portfolio Page!</title>
+<div class="hero-image">
+    <div class="hero-text">
+        <h1>Hi! I'm James Sarlo</h1>
+        <h2>I'm from the Pittsburgh area, and I'm looking to prove myself as a Full-Stack Engineer</h2>
+        <button onclick = "location.href='https://www.linkedin.com/in/james-sarlo-8b26b648/';">Hire Me!</button>
+    </div>
+</div>
+
+<body style="background-color:lightgoldenrodyellow;
+            font-family:sans-serif">
+    <div class="intro">
     <h1>Welcome to my site!</h1>
     <p>
-        My name is James Sarlo, and I am a recent graduate of Franciscan University of Steubenville. I have a Mathematics and Computer Science degree.
+        My name is James Sarlo, and I am a recent graduate of Franciscan University of Steubenville. 
+        I have a Mathematics and Computer Science degree. I currently work for a company called <a href="http://zoommedia.com/us/">ZOOM Media</a>, which provides advertising and music content
+        for fitness centers around the world. I currently work in small-town Western PA near Pittsburgh, but am looking to explore the world. This website
+        is my experimentation platform by which I can learn new technology, document my projects, show off my skills to recruiters, and share some personal thoughts and experiences.
     </p>
+    </div>
+    <div class="aboutme">
+    <h2>My skillset and my hobbies</h2>
+    <img src = "https://scontent.fagc1-2.fna.fbcdn.net/v/t1.0-9/31087202_623188744697382_6292209083860647936_n.jpg?_nc_cat=100&_nc_ht=scontent.fagc1-2.fna&oh=cde4b6be9a1c256afa337088d720353a&oe=5C86A8FC" width = "250" height = "250" class="left" alt ="Hi there!">
+    <p>
+        I work in IT as a day job, but I'm looking to get into software engineering or possibly freelance work. The programming language I am most familiar with is C++, but I also have experience in Java, C#, Python, R, and HTML/CSS/JavaScript.
+        My interests include, but are not limited to, sustainable energy, cars, Artificial Intelligence, music, literature, and history. As for a career, I would love to be able to work on
+        one of the cutting edge problems in Computer Science: self-driving cars. You can reach me on <a href="http://twitter.com/jsarlo2014">Twitter</a> or <a href="http://instagram.com/jamessarlo">Instagram</a>.
+    </p>
+    
+    </div>
+</body>
+<style> 
+body, html {
+    height:100%;
+    margin:0;
+}/*This is the stylesheet section that contains information about the hero image, the buttons, the dropdown menu, and the paragraph formatting.
+*/
+
+.hero-image {
+    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,0.5)), url("http://www.bu.edu/careers/files/2017/10/desk.jpg");
+    height: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.left {
+    float:left;
+    padding: 50px;
+}
+.hero-text {
+    text-align: center;
+    color:rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-weight: bold;
+}
+.intro {
+    text-align:center;
+}
+
+.aboutme {
+    text-align:center;
+}
+
+</style>
 </body>
