@@ -1,0 +1,96 @@
+/*CSS goes here!*/
+html {
+    display: block;
+}
+body, html {
+    height:100%;
+    margin:50;
+}
+body {
+    margin: 40px auto;
+    max-width: 650px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0 10px;
+}
+
+.hero-image {
+    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,0.5)), url("http://www.bu.edu/careers/files/2017/10/desk.jpg");
+    height: 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:relative;
+}
+.left {
+    float:left;
+    padding: 50px;
+}
+.hero-text {
+    text-align: center;
+    color:rgb(255, 255, 255);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-weight: bold;
+}
+
+img { 
+    float:left;
+    margin:0px 15x 15px 0px;
+}
+.navbar {
+    overflow:hidden;
+    background-color:#333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color:grey;
+}
+li {
+    float: left;
+}
+li a, .dropbtn {
+    display:block;
+    color:white;
+    text-align:center;
+    padding:14px 16px;
+    text-decoration: none;
+}
+li a:hover, .dropdown:hover .dropbtn{background-color:grey;} /*hover color*/
+.dropdown {
+   float: left;
+   overflow:hidden;
+}
+li.dropdown {
+    display:inline-block;
+}
+.dropdownContent {
+    /*Dropdown content; hidden by default*/
+    display:none;
+    position: absolute;
+    z-index: 1; 
+    background-color:#f1f1f1;
+    min-width: 100px;
+    box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display:block;
+    text-align: left;
+    float:none;
+}
+
+.dropdownContent a{background-color: #ddd;} /*Shows dropdown links on hover*/
+.dropdown:hover .dropdownContent {display:block;}
+.resumeList {
+    background-color:none;
+}
