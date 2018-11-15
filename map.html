@@ -34,11 +34,30 @@
       
       var markers = [
         {
-          coords:{lat:40.4333,lng:-79.9232},content:'<h1>Aiello&#39s Pizza</h1>'
+          coords:{lat:40.4333,lng:-79.9232},content:'<h1>Aiello&#39s Pizza, Squirrel Hill</h1>'
         },
         {
-          coords:{lat:40.4627,lng:-79.9507},content:'<h1>Tessaro&#39s Grill</h1>'
+          coords:{lat:40.4627,lng:-79.9507},content:'<h1>Tessaro&#39s Grill, Bloomfield</h1>'
+        },
+        {
+          coords:{lat:40.4286,lng:-79.9849},content:'<h1>The Smiling Moose, Carson Street</h1>'
+        },
+        {
+          coords:{lat:40.4437,lng:-79.9954},content:'<h1>Condado Tacos, Downtown</h1>'
+        },
+        {
+          coords:{lat:40.4578,lng:-79.9253},content:'<h1>Noodlehead, Shadyside</h1>'
+        },
+        {
+          coords:{lat:40.4086,lng:-80.0852},content:'<h1>Riley&#39s Pour House, Borough of Carnegie</h1>'
+        },
+        {
+          coords:{lat:40.4487,lng:-80.1568},content:'<h1>Central Diner & Grille, Robinson Township</h1>'
+        },
+        {
+          coords:{lat:40.4515,lng:-80.0060},content:'<h1>Federal Galley, North Shore</h1>'
         }
+
       ];
       function addMarker(props){
         var marker = new google.maps.Marker({
@@ -48,6 +67,8 @@
         if(props.content){
           var infoWindow = new google.maps.InfoWindow({
             content:props.content
+          });
+          marker.addListener('click',function(){infoWindow.open(map,marker);
           });
         }
       }
