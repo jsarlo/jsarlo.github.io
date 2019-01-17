@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head><link rel ="stylesheet" type = "text/css" href="D3AlleghenyCountyStyle.css">
+        <meta charset = "utf-8">
+        <meta name="viewport" content="initial-scale=1.0">
+        <title>A Map of Traffic Flow in Allegheny County</title>   
+    </head>
+    
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
+        <div id = "map"></div>
+        <script>
+            
+            var map;
+            function initMap(){
+                map = new google.maps.Map(document.getElementById('map'),
+                {
+                center:{lat:40.4406,lng:-79.9959},
+                zoom: 10,
+                mapTypeId:'roadmap'
+                });
+            }
+            //This function reads the CSV data from the Western PA Regional Data center website
+            d3.csv("https://data.wprdc.org/dataset/5d4809dd-3d2d-40c7-aa3b-da53925bf62b/resource/8edd8a76-8607-4ed3-960f-dcae914fd937/download/data-trafficcounts.csv", 
+            function(data) { 
+            data.forEach(function(d) {
+                Longitude= +d.Longitude;
+                Latitude= +d.Latitude;
+                sensor_id= d.sensor_id;
+                d["1a"]= +d["1a"];
+                d["2a"]= +d["2a"];
+                d["3a"]= +d["3a"];
+                d["4a"]= +d["4a"];
+                d["5a"]= +d["5a"];
+                d["6a"]= +d["6a"];
+                d["7a"]= +d["7a"];
+                d["8a"]= +d["8a"];
+                d["9a"]= +d["9a"];
+                d["10a"]= +d["10a"];
+                d["11a"]= +d["11a"];
+                d["12p"]= +d["12p"];
+                d["1p"]= +d["1p"];
+                d["2p"]= +d["2p"];
+                d["3p"]= +d["3p"];
+                d["4p"]= +d["4p"];
+                d["5p"]= +d["5p"];
+                d["6p"]= +d["6p"];
+                d["7p"]= +d["7p"];
+                d["8p"]= +d["8p"];
+                d["9p"]= +d["9p"];
+                d["10p"]= +d["10p"];
+                d["11p"]= +d["11p"];
+                d["12a"]= +d["12a"];
+                csv_data = data; //Use this variable to access the data outside this
+                });
+            /*for(var i = 0; i < csv_data.length; i++){
+                csv_data[""]
+            }*/
+            
+            var trafficSensors=[]; //holds markers of traffic sensors
+            var i;
+            var timeAverages = { //Key is time, val is average
+                oneAMAvg: d3.median(csv_data,function(csv_data){return csv_data["1a"]}),
+                twoAMAvg: d3.median(csv_data,function(csv_data){return csv_data["2a"]}),
+                threeAMAvg: d3.median(csv_data,function(csv_data){return csv_data["3a"]}),
+                fourAMAvg: d3.median(csv_data,function(csv_data){return csv_data["4a"]}),
+                fiveAMAvg: d3.median(csv_data,function(csv_data){return csv_data["5a"]}),
+                sixAMAvg: d3.median(csv_data,function(csv_data){return csv_data["6a"]}),
+                sevenAMAvg: d3.median(csv_data,function(csv_data){return csv_data["7a"]}),
+                eightAMAvg: d3.median(csv_data,function(csv_data){return csv_data["8a"]}),
+                nineAMAvg: d3.median(csv_data,function(csv_data){return csv_data["9a"]}),
+                tenAMAvg: d3.median(csv_data,function(csv_data){return csv_data["10a"]}),
+                elevenAMAvg: d3.median(csv_data,function(csv_data){return csv_data["11a"]}),
+                twelvePMAvg: d3.median(csv_data,function(csv_data){return csv_data["12p"]}),
+                onePMAvg: d3.median(csv_data,function(csv_data){return csv_data["1p"]}),
+                twoPMAvg: d3.median(csv_data,function(csv_data){return csv_data["2a"]}),
+                threePMAvg:d3.median(csv_data,function(csv_data){return csv_data["3p"]}),
+                fourPMAvg: d3.median(csv_data,function(csv_data){return csv_data["4p"]}),
+                fivePMAvg: d3.median(csv_data,function(csv_data){return csv_data["5p"]}),
+                sixPMAvg: d3.median(csv_data,function(csv_data){return csv_data["6p"]}),
+                sevenPMAvg: d3.median(csv_data,function(csv_data){return csv_data["7p"]}),
+                eightPMAvg: d3.median(csv_data,function(csv_data){return csv_data["8p"]}),
+                ninePMAvg: d3.median(csv_data,function(csv_data){return csv_data["9p"]}),
+                tenPMAvg: d3.median(csv_data,function(csv_data){return csv_data["10p"]}),
+                elevenPMAvg: d3.median(csv_data,function(csv_data){return csv_data["11p"]}),
+                twelveAMAvg: d3.median(csv_data,function(csv_data){return csv_data["12a"]})
+            }
+            
+            var contentString = '<h1>This is a test of the infoWindow</h1>';
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(csv_data[i]["Latitude"],csv_data[i]["Longitude"]),
+                    map:map,
+                    title: csv_data[i]["sensor_ID"]
+                });
+                 marker.info = new google.maps.InfoWindow({ //This method displays the values from the csv
+                        content:'<table border = 1px>' + 
+                        '<th>1 AM</th><td>'+csv_data[i]["1a"]+'</td></tr>' +
+                        '<th>2 AM</th><td>'+csv_data[i]["2a"]+'</td></tr>'+
+                        '<th>3 AM</th><td>'+csv_data[i]["3a"]+'</td></tr>'+
+                        '<th>4 AM</th><td>'+csv_data[i]["4a"]+'</td></tr>'+
+                        '<th>5 AM</th><td>'+csv_data[i]["5a"]+'</td></tr>'+
+                        '<th>6 AM</th><td>'+csv_data[i]["6a"]+'</td></tr>'+
+                        '<th>7 AM</th><td>'+csv_data[i]["7a"]+'</td></tr>'+
+                        '<th>8 AM</th><td>'+csv_data[i]["8a"]+'</td></tr>'+
+                        '<th>9 AM</th><td>'+csv_data[i]["9a"]+'</td></tr>'+
+                        '<th>10 AM</th><td>'+csv_data[i]["10a"]+'</td></tr>'+
+                        '<th>11 AM</th><td>'+csv_data[i]["11a"]+'</td></tr>'+
+                        '<th>12 PM</th><td>'+csv_data[i]["12p"]+'</td></tr>'+
+                        '<th>1 PM</th><td>'+csv_data[i]["1p"]+'</td></tr>'+
+                        '<th>2 PM</th><td>'+csv_data[i]["2p"]+'</td></tr>'+
+                        '<th>3 PM</th><td>'+csv_data[i]["3p"]+'</td></tr>'+
+                        '<th>4 PM</th><td>'+csv_data[i]["4p"]+'</td></tr>'+
+                        '<th>5 PM</th><td>'+csv_data[i]["5p"]+'</td></tr>'+
+                        '<th>6 PM</th><td>'+csv_data[i]["6p"]+'</td></tr>'+
+                        '<th>7 PM</th><td>'+csv_data[i]["7p"]+'</td></tr>'+
+                        '<th>8 PM</th><td>'+csv_data[i]["8p"]+'</td></tr>'+
+                        '<th>9 PM</th><td>'+csv_data[i]["9p"]+'</td></tr>'+
+                        '<th>10 PM</th><td>'+csv_data[i]["10p"]+'</td></tr>'+
+                        '<th>11 PM</th><td>'+csv_data[i]["11p"]+'</td></tr>'+
+                        '<th>12 AM</th><td>'+csv_data[i]["12a"]+'</td></tr>'+
+                        '</table>'
+                    });
+                
+                google.maps.event.addListener(marker,'click',function(){
+                    marker.info.open(map,marker);
+                });
+            }
+            for (i = 0; i < csv_data.length; i++)
+            {
+                addMarker(csv_data[i]);
+            }
+            
+            var svgWidth = 800;
+            var svgHeight = 600;
+            var barPadding = 3;
+            var barWidth = svgWidth / timeAverages.length;
+            
+            var vals = Object.values(timeAverages);
+            
+            /*var svg = d3.select("body")
+                .append("svg")
+                .attr("width",800)
+                .attr("height",600); //Adding the attributes to the DOM element
+            svg.selectAll("rect")
+                .data(vals) //This returns an array of values from the timeAverages object
+                .enter() //creates the mapping between our data and the DOM
+                .append("rect")
+                .attr("x", function(d, i) {
+                    return i * (svgWidth/vals.length);
+                })
+                .attr("y", function(d){
+                    return svgHeight - (d);
+                })
+                .attr("height",function(d){
+                    return d;
+                })
+                .attr("width", svgWidth/vals.length-barPadding)
+                .attr("fill",function(d){
+                    return "rgb(0,0, " + d * 10 + ")";
+                });
+            svg.selectAll("text") //Adds the labels of the averages
+                .data(vals)
+                .enter()
+                .append("text")
+                .text(function(d){
+                    return d;
+                })
+                .attr("x", function(d, i) {
+                    return i * (svgWidth/vals.length) + 5;
+                })
+                .attr("y", function(d){
+                    return svgHeight - d + 15;
+                })
+                .attr("font-family","sans-serif")
+                .attr("font-size","11px")
+                .attr("fill","blacks");*/
+            });
+            
+        </script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANJp94rSnO1ctmvW3dq6m9MHDKj0fhdmU&callback=initMap"
+        async defer></script>
+    </body>
+</html>
